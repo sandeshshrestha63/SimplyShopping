@@ -1,0 +1,44 @@
+﻿@model e_commerce.DAL.Tbl_Category
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Category</h1>
+    <a href="@Url.Action("Categories","Admin")" class="d-sm-inline-block btn btn-sm btn-primary ">
+        <i class="fas  text-white-50"></i> Back
+    </a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Add New Category</h6>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.HiddenFor(model => model.CategoryId)
+            @Html.AntiForgeryToken()
+            <div class="row form-group">
+                <div class="col-md-2">
+                    <label class="control-label">Category Name:</label>
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.CategoryName, new { @class = "form-control", required = "required", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-2">
+                    <label>IsActive:</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" id="dis01is_active" data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name="IsActive" value="true" form-control @(Model != null && Convert.ToBoolean(Model.IsActive) ? "checked" : "")>
+                </div>
+
+            </div>
+            <a onclick="window.history.back()" class="btn btn-danger">Cancel</a>
+            <input type="submit" class="btn btn-success" value="Save" />
+        }
+
+    </div>
+</div>

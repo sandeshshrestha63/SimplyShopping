@@ -1,0 +1,61 @@
+﻿@model e_commerce.DAL.Tbl_Category
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Category</h1>
+    <a href="@Url.Action("Categories","Admin")" class="d-sm-inline-block btn btn-sm btn-primary ">
+        <i class="fas  text-white-50"></i> Back
+    </a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Add New Category</h6>
+    </div>
+    <div class="card-body">
+        @Html.DisplayForModel()
+        <div class="col col-md-1 pull-right">
+            <input type="submit" value="Delete" class="btn btn-danger" data-toggle="modal" data-target="#myModal" />
+        </div>
+        @using (Html.BeginForm("Delete", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <div class="container">
+                <div class="modal fade" id="myModal" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+
+
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#ce181f">
+                                <button type="button" class="close" style="padding:5px; border-radius:30px 30px;" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" style="color:white">Are you Sure to Delete?</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary fa fa-check" style="margin:0 30px 0px 0px">Yes</button>
+                                <button type="button" value="No" id="No" class="btn btn-danger fa fa-remove" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+

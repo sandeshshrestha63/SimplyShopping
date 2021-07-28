@@ -1,3 +1,6 @@
+@model e_commerce.Models.Home.HomeIndexViewModel
+@using PagedList;
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Home Page";
 }
@@ -44,16 +47,17 @@
 
 </div>
 <div class="olContent f1"><h2 style="color:black">Search Product/Category</h2></div>
-<div class="olSearch fr">
-    <input type="text" placeholder="Enter Keyword" name="searchKey" class="inputComn houseText form-control" />
-    <div class="searchIcon">
-        <button type="button" class="searchBtn">
-            <img height="45px" width="45px" src="@Url.Content("~/Images/Search-var-flat.png")" />
-        </button>
+<form method="post">
+    <div class="olSearch fr">
+        <input type="text" placeholder="Enter Keyword" name="Search" class="inputComn houseText form-control" />
+        <div class="searchIcon">
+            <button type="submit" class="searchBtn">
+                <img height="45px" width="45px" src="@Url.Content("~/Images/Search-var-flat.png")" />
+            </button>
+        </div>
     </div>
+</form>
 
-
-</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -64,20 +68,44 @@
 </div>
 
 <div class="row product-container">
+    @if (Model != null)
+    {
+        foreach (var item in Model.listofProducts)
+        {
+            <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+                <div class="thumbnail product-item" style="height:300px">
 
-    <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
-        <div class="thumbnail product-item" style="height:300px">
+                    <img class="img-responsive" title="Click to View Product detail"
+                         style="cursor:pointer;height:160px;width:100%"
+                         src="@Url.Content("~/Images/s9.jpg")" />
 
-            <img class="img-responsive" title="Click to View Product detail"
-                 style="cursor:pointer;height:160px;width:100%"
-                 src="~/Images/81_12_24_2017_10_26_28.jpg" />
-
-            <div class="caption">
-                <h5>Product Name</h5>
-                <p>500.00 ৳.</p>
-                <p>Available</p>
-                <div class="product-item-badge">New</div>
+                    <div class="caption">
+                        <h5> @item.ProductName</h5>
+                        <p>Rs.@item.Price</p>
+                        <p>
+                            @if (item.Quantity > 0)
+                            {
+                                using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
+                                {
+                                    <button class="pull-right" type="submit"><i class="fa fa-shopping-cart pull-right"></i></button>
+                                }
+                                <span class="btn btn-success">Available</span>
+                            }
+                            else
+                            {
+                                <span class="btn btn-danger">Not Available</span>
+                            }
+                        </p>
+                        @if (item.IsFeatured == true)
+                        {
+                            <div class="product-item-badge">Featured</div>
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        }
+    }
+</div>
+<div class="container" style="text-align:center">
+    @Html.PagedListPager(Model.listofProducts, page => Url.Action("Index", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayItemSliceAndTotal = true })
 </div>

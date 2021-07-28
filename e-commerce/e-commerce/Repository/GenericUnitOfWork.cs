@@ -17,7 +17,7 @@ namespace e_commerce.Repository
         public void SaveChanges()
         {
             DBEntity.SaveChanges();
-        }
+        } 
 
         protected virtual void Dispose(bool disposing)
         {
