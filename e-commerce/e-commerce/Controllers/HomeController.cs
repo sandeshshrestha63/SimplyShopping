@@ -46,30 +46,40 @@ namespace e_commerce.Controllers
             else
             {
                 List<Item> cart = (List<Item>)Session["cart"];
+                List<Item> newcart = new List<Item>();
                 var product = db.Tbl_Product.Find(productId);
-                foreach (var item in cart.ToList())
+                var i = 0;
+                foreach (var item in cart)
                 {
                     if (item.Product.ProductId == productId)
                     {
                         int prevQty = item.Quantity;
-                        cart.Remove(item);
-                        cart.Add(new Item()
+                        //cart.Remove(item);
+                        newcart.Add(new Item()
                         {
                             Product = product,
                             Quantity = prevQty + 1
                         });
-                        break;
+                        i = i + 1;
                     }
                     else
                     {
-                        cart.Add(new Item()
+                        newcart.Add(new Item()
                         {
-                            Product = product,
-                            Quantity = 1
+                            Product = item.Product,
+                            Quantity = item.Quantity
                         });
                     }
                 }
-                Session["cart"] = cart;
+                if (i==0)
+                {
+                    newcart.Add(new Item()
+                    {
+                        Product = product,
+                        Quantity = 1
+                    });
+                }
+                Session["cart"] = newcart;
             }
             return Redirect("Index");
         }
@@ -114,16 +124,18 @@ namespace e_commerce.Controllers
             else
             {
                 List<Item> cart = (List<Item>)Session["cart"];
+                List<Item> newcart = new List<Item>();
                 var product = db.Tbl_Product.Find(productId);
-                foreach (var item in cart.ToList())
+                var i = 0;
+                foreach (var item in cart)
                 {
                     if (item.Product.ProductId == productId)
                     {
                         int prevQty = item.Quantity;
-                        cart.Remove(item);
-                        if(mthd == 1)
+                        //cart.Remove(item);
+                        if(mthd ==1)
                         {
-                            cart.Add(new Item()
+                            newcart.Add(new Item()
                             {
                                 Product = product,
                                 Quantity = prevQty + 1
@@ -131,30 +143,30 @@ namespace e_commerce.Controllers
                         }
                         else
                         {
-                            int qty = prevQty - 1;
-                            if(qty >0)
+                            if(prevQty >1)
                             {
-                                cart.Add(new Item()
+                                newcart.Add(new Item()
                                 {
                                     Product = product,
-                                    Quantity = prevQty - 1
+                                    Quantity = prevQty -1
                                 });
-                            }    
+                            }
                         }
                         
-                        break;
                     }
                     else
                     {
-                        cart.Add(new Item()
+                        newcart.Add(new Item()
                         {
-                            Product = product,
-                            Quantity = 1
+                            Product = item.Product,
+                            Quantity = item.Quantity
                         });
                     }
                 }
-                Session["cart"] = cart;
+               
+                Session["cart"] = newcart;
             }
+            
             return RedirectToAction("Checkout", "Home");
         }
     }

@@ -19,7 +19,7 @@ namespace e_commerce.Models.Home
         {
             List<Tbl_Product> data = new List<Tbl_Product>();
             PagedList<Tbl_Product> list; 
-            var pageSize = 2;
+            var pageSize = 4;
             int pageindex = 1;
             pageindex = page.HasValue ? Convert.ToInt32(page) : 1;
             if (Search != null)

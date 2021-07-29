@@ -17,21 +17,27 @@ else
         <thead>
             <tr>
                 <th>Product</th>
+                <th>Price</th>
                 <th>Quantity</th>
+                <th>Total Price</th>
                 <th>Add</th>
             </tr>
         </thead>
         <tbody>
             @foreach (Item item in (List<Item>)Session["cart"])
             {
+                decimal?  i = 0;
+                i = item.Product.Price * Convert.ToDecimal(item.Quantity);
                 <tr>
                     <td>@item.Product.ProductName</td>
+                    <td>Rs.@item.Product.Price</td>
                     <td>@item.Quantity</td>
+                    <td>Rs.@i</td>
                     <td>
-                        <a href="@Url.Action("AddToCart", "Home", new { productId = item.Product.ProductId, mthd=1})">
+                        <a href="@Url.Action("Updatecart", "Home", new { productId = item.Product.ProductId, mthd=1})">
                             <i class="fa fa-plus"></i>
                         </a>
-                        <a href="@Url.Action("DecreaseQty", "Home", new { productId = item.Product.ProductId,mthd=0 })">
+                        <a href="@Url.Action("Updatecart", "Home", new { productId = item.Product.ProductId,mthd=0 })">
                             <i class="fa fa-minus"></i>
                         </a>
                     </td>
