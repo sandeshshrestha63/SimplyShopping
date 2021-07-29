@@ -1,0 +1,89 @@
+﻿@model e_commerce.DAL.Tbl_Members
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/bower_components/bootstrap/dist/css/bootstrap.min.css")">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css")">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/bower_components/font-awesome/css/font-awesome.min.css")">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/dist/css/AdminLTE.min.css")">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+     folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+    <!-- Magnify -->
+    <link rel="stylesheet" href="magnify/magnify.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <!-- Paypal Express -->
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <!-- Google Recaptcha -->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+
+    <!-- Custom CSS -->
+</head>
+<body class=" hold-transition login-page">
+    <div class="login-box">
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in </p>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" name="EmailId" placeholder="Email" required>
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" name="Password" placeholder="Password" required>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" name="login"><i class="fa fa-sign-in"></i> Sign In</button>
+                    </div>
+                </div>
+            }
+            <br>
+            <a href="password_forgot.php">I forgot my password</a><br>
+            <a href="signup.php" class="text-center">Register a new membership</a><br>
+            <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Home</a>
+        </div>
+    </div>
+    <!-- jQuery 3 -->
+    <script src="@Url.Content("~/Content/bower_components/jquery/dist/jquery.min.js")"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="@Url.Content("~/Content/bower_components/bootstrap/dist/js/bootstrap.min.js")"></script>
+    <!-- DataTables -->
+    <script src="@Url.Content("~/Content/bower_components/datatables.net/js/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Content/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")"></script>
+    <!-- SlimScroll -->
+    <script src="@Url.Content("~/Content/bower_components/jquery-slimscroll/jquery.slimscroll.min.js")"></script>
+    <!-- FastClick -->
+    <script src="@Url.Content("~/Content/bower_components/fastclick/lib/fastclick.js")"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/dist/js/adminlte.min.js")"></script>
+    <!-- CK Editor -->
+    <script src="@Url.Content("~/Content/bower_components/ckeditor/ckeditor.js")"></script>
+</body>
+</html>

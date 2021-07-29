@@ -52,6 +52,27 @@
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbl_OrdHolder">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="OrdId" Type="bigint" />
+          <Property Name="ItemType" Type="varchar" MaxLength="150" />
+          <Property Name="ItemDescription" Type="varchar" MaxLength="200" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Sn" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_OrdKey">
+          <Key>
+            <PropertyRef Name="OrdID" />
+          </Key>
+          <Property Name="OrdID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsDelivered" Type="bit" />
+          <Property Name="OrdDate" Type="datetime" />
+          <Property Name="CustName" Type="varchar" MaxLength="150" />
+          <Property Name="CustPhone" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Tbl_Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -63,11 +84,11 @@
           <Property Name="IsDelete" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="Description" Type="datetime" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="ProductImage" Type="varchar(max)" />
           <Property Name="IsFeatured" Type="bit" />
           <Property Name="Quantity" Type="int" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Tbl_Roles">
           <Key>
@@ -135,12 +156,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_OrdHolder_tbl_OrdKey">
+          <End Role="tbl_OrdKey" Type="Self.tbl_OrdKey" Multiplicity="0..1" />
+          <End Role="tbl_OrdHolder" Type="Self.tbl_OrdHolder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_OrdKey">
+              <PropertyRef Name="OrdID" />
+            </Principal>
+            <Dependent Role="tbl_OrdHolder">
+              <PropertyRef Name="OrdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SimplyShoppingModelStoreContainer">
           <EntitySet Name="Tbl_Cart" EntityType="Self.Tbl_Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_CartStatus" EntityType="Self.Tbl_CartStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Category" EntityType="Self.Tbl_Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_MemberRole" EntityType="Self.Tbl_MemberRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Members" EntityType="Self.Tbl_Members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_OrdHolder" EntityType="Self.tbl_OrdHolder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_OrdKey" EntityType="Self.tbl_OrdKey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" Schema="dbo" store:Type="Tables" />
@@ -156,6 +191,10 @@
           <AssociationSet Name="FK__Tbl_Shipp__Membe__3A81B327" Association="Self.FK__Tbl_Shipp__Membe__3A81B327">
             <End Role="Tbl_Members" EntitySet="Tbl_Members" />
             <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrdHolder_tbl_OrdKey" Association="Self.FK_tbl_OrdHolder_tbl_OrdKey">
+            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
+            <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -191,6 +230,29 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Tbl_ShippingDetails" Relationship="Self.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_Members" ToRole="Tbl_ShippingDetails" />
+        </EntityType>
+        <EntityType Name="tbl_OrdHolder">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="OrdId" Type="Int64" />
+          <Property Name="ItemType" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ItemDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Sn" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_OrdKey" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdHolder" ToRole="tbl_OrdKey" />
+        </EntityType>
+        <EntityType Name="tbl_OrdKey">
+          <Key>
+            <PropertyRef Name="OrdID" />
+          </Key>
+          <Property Name="OrdID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsDelivered" Type="Boolean" />
+          <Property Name="OrdDate" Type="DateTime" Precision="3" />
+          <Property Name="CustName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CustPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_OrdHolder" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="tbl_OrdHolder" />
         </EntityType>
         <EntityType Name="Tbl_Roles">
           <Key>
@@ -235,16 +297,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_OrdHolder_tbl_OrdKey">
+          <End Role="tbl_OrdKey" Type="Self.tbl_OrdKey" Multiplicity="0..1" />
+          <End Role="tbl_OrdHolder" Type="Self.tbl_OrdHolder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_OrdKey">
+              <PropertyRef Name="OrdID" />
+            </Principal>
+            <Dependent Role="tbl_OrdHolder">
+              <PropertyRef Name="OrdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SimplyShoppingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tbl_CartStatus" EntityType="Self.Tbl_CartStatus" />
           <EntitySet Name="Tbl_MemberRole" EntityType="Self.Tbl_MemberRole" />
           <EntitySet Name="Tbl_Members" EntityType="Self.Tbl_Members" />
+          <EntitySet Name="tbl_OrdHolder" EntityType="Self.tbl_OrdHolder" />
+          <EntitySet Name="tbl_OrdKey" EntityType="Self.tbl_OrdKey" />
           <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" />
           <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" />
           <EntitySet Name="Tbl_SlideImage" EntityType="Self.Tbl_SlideImage" />
           <AssociationSet Name="FK__Tbl_Shipp__Membe__3A81B327" Association="Self.FK__Tbl_Shipp__Membe__3A81B327">
             <End Role="Tbl_Members" EntitySet="Tbl_Members" />
             <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrdHolder_tbl_OrdKey" Association="Self.FK_tbl_OrdHolder_tbl_OrdKey">
+            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
+            <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
           </AssociationSet>
           <EntitySet Name="Tbl_Cart" EntityType="SimplyShoppingModel.Tbl_Cart" />
           <EntitySet Name="Tbl_Category" EntityType="SimplyShoppingModel.Tbl_Category" />
@@ -289,11 +369,11 @@
           <Property Name="IsDelete" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsFeatured" Type="Boolean" />
           <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="Tbl_Cart" Relationship="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5" FromRole="Tbl_Product" ToRole="Tbl_Cart" />
           <NavigationProperty Name="Tbl_Category" Relationship="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE" FromRole="Tbl_Product" ToRole="Tbl_Category" />
         </EntityType>
@@ -356,6 +436,29 @@
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OrdHolder">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdHolder">
+              <MappingFragment StoreEntitySet="tbl_OrdHolder">
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OrdKey">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdKey">
+              <MappingFragment StoreEntitySet="tbl_OrdKey">
+                <ScalarProperty Name="OrdID" ColumnName="OrdID" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="OrdDate" ColumnName="OrdDate" />
+                <ScalarProperty Name="CustName" ColumnName="CustName" />
+                <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

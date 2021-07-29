@@ -4,17 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a3a8054f9b9842ac8230c3624cbf2876" Name="Diagram1">
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_CartStatus" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_MemberRole" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="0f528bc68421493cbe5d18f605887a39" Name="Diagram1">
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_CartStatus" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_MemberRole" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Members" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Roles" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.tbl_OrdHolder" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.tbl_OrdKey" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Roles" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_ShippingDetails" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_SlideImage" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_SlideImage" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Cart" Width="1.5" PointX="0.5" PointY="0.75" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Category" Width="1.5" PointX="5.125" PointY="0.875" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Product" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Cart" Width="1.5" PointX="14.875" PointY="4.875" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Category" Width="1.5" PointX="10.375" PointY="4.875" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Product" Width="1.5" PointX="12.625" PointY="4" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE" />
       </Diagram>
