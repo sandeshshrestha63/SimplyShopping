@@ -30,9 +30,9 @@ else
                 i = item.Product.Price * Convert.ToDecimal(item.Quantity);
                 <tr>
                     <td>@item.Product.ProductName</td>
-                    <td>Rs.@item.Product.Price</td>
+                    <td>$ @item.Product.Price</td>
                     <td>@item.Quantity</td>
-                    <td>Rs.@i</td>
+                    <td>$ @i</td>
                     <td>
                         <a href="@Url.Action("Updatecart", "Home", new { productId = item.Product.ProductId, mthd=1})">
                             <i class="fa fa-plus"></i>

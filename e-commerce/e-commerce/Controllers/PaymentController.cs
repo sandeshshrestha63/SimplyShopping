@@ -1,4 +1,5 @@
-﻿using PayPal.Api;
+﻿using e_commerce.DAL;
+using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace e_commerce.Controllers
     {
         // GET: Payment
 
+        SimplyShoppingEntities db = new SimplyShoppingEntities();
         public ActionResult PaymentWithPaypal(string Cancel = null)
         {
             //getting the apiContext
@@ -86,7 +88,7 @@ namespace e_commerce.Controllers
             }
 
             //on successful payment, show success page to user.
-            return View("SuccessView");
+            return RedirectToAction("SuccessView");
         }
 
         private PayPal.Api.Payment payment;
@@ -132,23 +134,24 @@ namespace e_commerce.Controllers
             {
                 tax = "1",
                 shipping = "1",
-                subtotal = "1"
+                subtotal = "2"
             };
 
             //Final amount with details
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "3", // Total must be equal to sum of tax, shipping and subtotal.
+                total = "4", // Total must be equal to sum of tax, shipping and subtotal.
                 details = details
             };
-
+            var invoice = Convert.ToString((new Random()).Next(100000));
+             invoice = "#" + invoice.ToString();
             var transactionList = new List<Transaction>();
             // Adding description about the transaction
             transactionList.Add(new Transaction()
             {
                 description = "Transaction description",
-                invoice_number = "your invoice number", //Generate an Invoice No
+                invoice_number = invoice , //Generate an Invoice No
                 amount = amount,
                 item_list = itemList
             });
@@ -164,6 +167,37 @@ namespace e_commerce.Controllers
 
             // Create a payment using a APIContext
             return this.payment.Create(apiContext);
+        }
+        public ActionResult SuccessView()
+        {
+            try
+            {
+                List<Models.Home.Item> cart = (List<Models.Home.Item>)(Session["cart"]);
+                tbl_OrdKey ordkey = new tbl_OrdKey();
+                ordkey.CustName = "Sandesh shrestha";
+                ordkey.CustPhone = "9841505813";
+                ordkey.OrdDate = DateTime.Now;
+                ordkey.IsDelivered = false;
+                db.tbl_OrdKey.Add(ordkey);
+                db.SaveChanges();
+                var ordid = db.tbl_OrdKey.OrderByDescending(x=> x.OrdID >=0).FirstOrDefault().OrdID;
+                foreach (var item in cart)
+                {
+                    tbl_OrdHolder ordHolder = new tbl_OrdHolder();
+                    ordHolder.ItemType = item.Product.ProductName;
+                    ordHolder.ItemDescription = item.Product.Description;
+                    ordHolder.Price = item.Product.Price;
+                    ordHolder.Quantity = item.Quantity;
+                    ordHolder.OrdId = Convert.ToInt64(ordid);
+                    db.tbl_OrdHolder.Add(ordHolder);
+                }
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return View();
         }
     }
 }
