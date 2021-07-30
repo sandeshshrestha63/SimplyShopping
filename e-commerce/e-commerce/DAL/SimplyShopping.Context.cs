@@ -33,9 +33,9 @@ namespace e_commerce.DAL
         public virtual DbSet<Tbl_Roles> Tbl_Roles { get; set; }
         public virtual DbSet<Tbl_ShippingDetails> Tbl_ShippingDetails { get; set; }
         public virtual DbSet<Tbl_SlideImage> Tbl_SlideImage { get; set; }
+        public virtual DbSet<Tbl_Users> Tbl_Users { get; set; }
         public virtual DbSet<Tbl_Cart> Tbl_Cart { get; set; }
         public virtual DbSet<Tbl_Category> Tbl_Category { get; set; }
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
-        public virtual DbSet<Tbl_Users> Tbl_Users { get; set; }
     }
 }

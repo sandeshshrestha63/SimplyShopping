@@ -178,6 +178,7 @@ namespace e_commerce.Controllers
                 ordkey.CustPhone = "9841505813";
                 ordkey.OrdDate = DateTime.Now;
                 ordkey.IsDelivered = false;
+                ordkey.OrdTot = Convert.ToDecimal(Session["SessTotal"].ToString());
                 db.tbl_OrdKey.Add(ordkey);
                 db.SaveChanges();
                 var ordid = db.tbl_OrdKey.OrderByDescending(x=> x.OrdID >=0).FirstOrDefault().OrdID;

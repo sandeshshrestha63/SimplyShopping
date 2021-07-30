@@ -74,27 +74,31 @@
         {
             <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
                 <div class="thumbnail product-item" style="height:300px">
+                    <a href="@Url.Action("Product","Product",new { id=item.ProductId})">
+                        <img class="img-responsive" title="Click to View Product detail"
+                             style="cursor:pointer;height:160px;width:100%"
+                             src="@Url.Content("~/Images/"+item.ProductImage)" />
+                    </a>
 
-                    <img class="img-responsive" title="Click to View Product detail"
-                         style="cursor:pointer;height:160px;width:100%"
-                         src="@Url.Content("~/Images/"+item.ProductImage)" />
 
                     <div class="caption">
                         <h5> @item.ProductName</h5>
-                        <p>Rs.@item.Price</p>
+                        <p>$ @item.Price</p>
                         <p>
-                            @if (item.Quantity > 0)
-                            {
-                                using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
+                            <a href="@Url.Action("Product","Product",new { id=item.ProductId})">
+                                @if (item.Quantity > 0)
                                 {
-                                    <button class="pull-right" type="submit"><i class="fa fa-shopping-cart pull-right"></i></button>
+                                    using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
+                                    {
+                                        <button class="pull-right" type="submit"><i class="fa fa-shopping-cart pull-right"></i></button>
+                                    }
+                                    <span class="btn btn-success">Available</span>
                                 }
-                                <span class="btn btn-success">Available</span>
-                            }
-                            else
-                            {
-                                <span class="btn btn-danger">Not Available</span>
-                            }
+                                else
+                                {
+                                    <span class="btn btn-danger">Not Available</span>
+                                }
+                            </a>
                         </p>
                         @if (item.IsFeatured == true)
                         {

@@ -32,7 +32,7 @@
                             {
                                 foreach (Item item in (List<Item>)Session["cart"])
                                 {
-                                    i = i+1;
+                                    i = i + 1;
                                 }
                             }
                             else
@@ -112,6 +112,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", false)
 </body>
 </html>

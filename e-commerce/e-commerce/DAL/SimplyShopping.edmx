@@ -72,6 +72,7 @@
           <Property Name="OrdDate" Type="datetime" />
           <Property Name="CustName" Type="varchar" MaxLength="150" />
           <Property Name="CustPhone" Type="varchar" MaxLength="50" />
+          <Property Name="OrdTot" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Tbl_Product">
           <Key>
@@ -84,7 +85,7 @@
           <Property Name="IsDelete" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar(max)" />
           <Property Name="ProductImage" Type="varchar(max)" />
           <Property Name="IsFeatured" Type="bit" />
           <Property Name="Quantity" Type="int" />
@@ -138,7 +139,7 @@
           <Property Name="reset_code" Type="varchar" MaxLength="50" />
           <Property Name="created_on" Type="date" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Tbl_Cart__Produc__38996AB5">
+        <Association Name="FK__Tbl_Cart__Produc__2180FB33">
           <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="0..1" />
           <End Role="Tbl_Cart" Type="Self.Tbl_Cart" Multiplicity="*" />
           <ReferentialConstraint>
@@ -150,7 +151,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tbl_Produ__Categ__398D8EEE">
+        <Association Name="FK__Tbl_Produ__Categ__22751F6C">
           <End Role="Tbl_Category" Type="Self.Tbl_Category" Multiplicity="0..1" />
           <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -199,11 +200,11 @@
           <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_SlideImage" EntityType="Self.Tbl_SlideImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_Users" EntityType="Self.Tbl_Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Tbl_Cart__Produc__38996AB5" Association="Self.FK__Tbl_Cart__Produc__38996AB5">
+          <AssociationSet Name="FK__Tbl_Cart__Produc__2180FB33" Association="Self.FK__Tbl_Cart__Produc__2180FB33">
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
             <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tbl_Produ__Categ__398D8EEE" Association="Self.FK__Tbl_Produ__Categ__398D8EEE">
+          <AssociationSet Name="FK__Tbl_Produ__Categ__22751F6C" Association="Self.FK__Tbl_Produ__Categ__22751F6C">
             <End Role="Tbl_Category" EntitySet="Tbl_Category" />
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
@@ -272,6 +273,7 @@
           <Property Name="CustName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CustPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_OrdHolder" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="tbl_OrdHolder" />
+          <Property Name="OrdTot" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Tbl_Roles">
           <Key>
@@ -345,82 +347,19 @@
             <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
             <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Users" EntityType="SimplyShoppingModel.Tbl_Users" />
           <EntitySet Name="Tbl_Cart" EntityType="SimplyShoppingModel.Tbl_Cart" />
           <EntitySet Name="Tbl_Category" EntityType="SimplyShoppingModel.Tbl_Category" />
           <EntitySet Name="Tbl_Product" EntityType="SimplyShoppingModel.Tbl_Product" />
-          <AssociationSet Name="FK__Tbl_Cart__Produc__38996AB5" Association="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5">
+          <AssociationSet Name="FK__Tbl_Cart__Produc__2180FB33" Association="SimplyShoppingModel.FK__Tbl_Cart__Produc__2180FB33">
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
             <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tbl_Produ__Categ__398D8EEE" Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE">
+          <AssociationSet Name="FK__Tbl_Produ__Categ__22751F6C" Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__22751F6C">
             <End Role="Tbl_Category" EntitySet="Tbl_Category" />
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
-          <EntitySet Name="Tbl_Users" EntityType="SimplyShoppingModel.Tbl_Users" />
         </EntityContainer>
-        <EntityType Name="Tbl_Cart">
-          <Key>
-            <PropertyRef Name="CartId" />
-          </Key>
-          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="MemberId" Type="Int32" />
-          <Property Name="CartStatusId" Type="Int32" />
-          <NavigationProperty Name="Tbl_Product" Relationship="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5" FromRole="Tbl_Cart" ToRole="Tbl_Product" />
-        </EntityType>
-        <EntityType Name="Tbl_Category">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsDelete" Type="Boolean" />
-          <NavigationProperty Name="Tbl_Product" Relationship="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE" FromRole="Tbl_Category" ToRole="Tbl_Product" />
-        </EntityType>
-        <EntityType Name="Tbl_Product">
-          <Key>
-            <PropertyRef Name="ProductId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CategoryId" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsDelete" Type="Boolean" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IsFeatured" Type="Boolean" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="Tbl_Cart" Relationship="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5" FromRole="Tbl_Product" ToRole="Tbl_Cart" />
-          <NavigationProperty Name="Tbl_Category" Relationship="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE" FromRole="Tbl_Product" ToRole="Tbl_Category" />
-        </EntityType>
-        <Association Name="FK__Tbl_Cart__Produc__38996AB5">
-          <End Type="SimplyShoppingModel.Tbl_Product" Role="Tbl_Product" Multiplicity="0..1" />
-          <End Type="SimplyShoppingModel.Tbl_Cart" Role="Tbl_Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Product">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="Tbl_Cart">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Tbl_Produ__Categ__398D8EEE">
-          <End Type="SimplyShoppingModel.Tbl_Category" Role="Tbl_Category" Multiplicity="0..1" />
-          <End Type="SimplyShoppingModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Tbl_Product">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Tbl_Users">
           <Key>
             <PropertyRef Name="id" />
@@ -439,6 +378,69 @@
           <Property Name="reset_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="created_on" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
+        <EntityType Name="Tbl_Cart">
+          <Key>
+            <PropertyRef Name="CartId" />
+          </Key>
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="CartStatusId" Type="Int32" />
+          <NavigationProperty Name="Tbl_Product" Relationship="SimplyShoppingModel.FK__Tbl_Cart__Produc__2180FB33" FromRole="Tbl_Cart" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Product" Relationship="SimplyShoppingModel.FK__Tbl_Produ__Categ__22751F6C" FromRole="Tbl_Category" ToRole="Tbl_Product" />
+        </EntityType>
+        <EntityType Name="Tbl_Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsFeatured" Type="Boolean" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Tbl_Cart" Relationship="SimplyShoppingModel.FK__Tbl_Cart__Produc__2180FB33" FromRole="Tbl_Product" ToRole="Tbl_Cart" />
+          <NavigationProperty Name="Tbl_Category" Relationship="SimplyShoppingModel.FK__Tbl_Produ__Categ__22751F6C" FromRole="Tbl_Product" ToRole="Tbl_Category" />
+        </EntityType>
+        <Association Name="FK__Tbl_Cart__Produc__2180FB33">
+          <End Type="SimplyShoppingModel.Tbl_Product" Role="Tbl_Product" Multiplicity="0..1" />
+          <End Type="SimplyShoppingModel.Tbl_Cart" Role="Tbl_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Tbl_Cart">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tbl_Produ__Categ__22751F6C">
+          <End Type="SimplyShoppingModel.Tbl_Category" Role="Tbl_Category" Multiplicity="0..1" />
+          <End Type="SimplyShoppingModel.Tbl_Product" Role="Tbl_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Tbl_Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -492,6 +494,7 @@
           <EntitySetMapping Name="tbl_OrdKey">
             <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdKey">
               <MappingFragment StoreEntitySet="tbl_OrdKey">
+                <ScalarProperty Name="OrdTot" ColumnName="OrdTot" />
                 <ScalarProperty Name="OrdID" ColumnName="OrdID" />
                 <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
                 <ScalarProperty Name="OrdDate" ColumnName="OrdDate" />
@@ -533,6 +536,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Users">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Users">
+              <MappingFragment StoreEntitySet="Tbl_Users">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="reset_code" ColumnName="reset_code" />
+                <ScalarProperty Name="activate_code" ColumnName="activate_code" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Cart">
             <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Cart">
               <MappingFragment StoreEntitySet="Tbl_Cart">
@@ -568,25 +590,6 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Users">
-            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Users">
-              <MappingFragment StoreEntitySet="Tbl_Users">
-                <ScalarProperty Name="created_on" ColumnName="created_on" />
-                <ScalarProperty Name="reset_code" ColumnName="reset_code" />
-                <ScalarProperty Name="activate_code" ColumnName="activate_code" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="photo" ColumnName="photo" />
-                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="lastname" ColumnName="lastname" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

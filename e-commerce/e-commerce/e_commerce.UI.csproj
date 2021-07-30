@@ -9281,6 +9281,7 @@
     <Content Include="Views\Payment\SuccessView.cshtml" />
     <Content Include="Views\Home\CategoryList.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
