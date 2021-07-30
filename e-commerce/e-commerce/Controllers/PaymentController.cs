@@ -113,7 +113,7 @@ namespace e_commerce.Controllers
                 {
                     name = item.Product.ProductName.ToString(),
                     currency = "USD",
-                    price = "1",
+                    price = item.Product.Price.ToString(),
                     quantity = item.Quantity.ToString(),
                     sku = "sku"
                 });
@@ -132,16 +132,16 @@ namespace e_commerce.Controllers
             // Adding Tax, shipping and Subtotal details
             var details = new Details()
             {
-                tax = "1",
-                shipping = "1",
-                subtotal = "2"
+                tax = "0",
+                shipping = "0",
+                subtotal = Session["SessTotal"].ToString()
             };
 
             //Final amount with details
             var amount = new Amount()
             {
                 currency = "USD",
-                total = "4", // Total must be equal to sum of tax, shipping and subtotal.
+                total = Session["SessTotal"].ToString(), // Total must be equal to sum of tax, shipping and subtotal.
                 details = details
             };
             var invoice = Convert.ToString((new Random()).Next(100000));
@@ -192,6 +192,7 @@ namespace e_commerce.Controllers
                     db.tbl_OrdHolder.Add(ordHolder);
                 }
                 db.SaveChanges();
+                Session.Remove("cart");
             }
             catch(Exception ex)
             {
