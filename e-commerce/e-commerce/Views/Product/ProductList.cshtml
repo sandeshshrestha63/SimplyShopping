@@ -1,0 +1,50 @@
+﻿@model IEnumerable<e_commerce.DAL.Tbl_Product>
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<div class="row product-container">
+    @{ 
+        int i = 0;
+    }
+    @foreach (var item in Model)
+    {
+        i = i + 1;
+        <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+            <div class="thumbnail product-item" style="height:300px">
+
+                <img class="img-responsive" title="Click to View Product detail"
+                     style="cursor:pointer;height:160px;width:100%"
+                     src="@Url.Content("~/Images/"+item.ProductImage)" />
+
+                <div class="caption">
+                    <h5> @item.ProductName</h5>
+                    <p>Rs.@item.Price</p>
+                    <p>
+                        @if (item.Quantity > 0)
+                        {
+                            using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
+                            {
+                                <button class="pull-right" type="submit"><i class="fa fa-shopping-cart pull-right"></i></button>
+                            }
+                            <span class="btn btn-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="btn btn-danger">Not Available</span>
+                        }
+                    </p>
+                    @if (item.IsFeatured == true)
+                    {
+                        <div class="product-item-badge">Featured</div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    @if(i == 0)
+    {
+        <div class="alert alert-danger">There are no products currently under this category !!</div>
+    }
+
+</div>

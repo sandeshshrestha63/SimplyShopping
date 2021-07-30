@@ -1,0 +1,9 @@
+﻿@model IEnumerable<e_commerce.DAL.Tbl_Category>
+@{
+    foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("ProductList","Product",new { CategoryId=item.CategoryId})" )">@item.CategoryName</a>
+        </li>
+    }
+}

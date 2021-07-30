@@ -169,5 +169,11 @@ namespace e_commerce.Controllers
             
             return RedirectToAction("Checkout", "Home");
         }
+        [ChildActionOnly]
+        public ActionResult CategoryList()
+        {
+            var catList = db.Tbl_Category.Where(x=>x.IsActive == true && x.IsDelete== false).ToList();
+            return PartialView(catList);
+        }
     }
 }
