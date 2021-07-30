@@ -120,6 +120,24 @@
           <Property Name="SlideTitle" Type="varchar" MaxLength="500" />
           <Property Name="SlideImage" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="Tbl_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="type" Type="int" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="text" Nullable="false" />
+          <Property Name="contact_info" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="photo" Type="varchar" MaxLength="200" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="activate_code" Type="varchar" MaxLength="50" />
+          <Property Name="reset_code" Type="varchar" MaxLength="50" />
+          <Property Name="created_on" Type="date" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Tbl_Cart__Produc__38996AB5">
           <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="0..1" />
           <End Role="Tbl_Cart" Type="Self.Tbl_Cart" Multiplicity="*" />
@@ -180,6 +198,7 @@
           <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_SlideImage" EntityType="Self.Tbl_SlideImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Users" EntityType="Self.Tbl_Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Tbl_Cart__Produc__38996AB5" Association="Self.FK__Tbl_Cart__Produc__38996AB5">
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
             <End Role="Tbl_Cart" EntitySet="Tbl_Cart" />
@@ -337,6 +356,7 @@
             <End Role="Tbl_Category" EntitySet="Tbl_Category" />
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
+          <EntitySet Name="Tbl_Users" EntityType="SimplyShoppingModel.Tbl_Users" />
         </EntityContainer>
         <EntityType Name="Tbl_Cart">
           <Key>
@@ -401,6 +421,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tbl_Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="contact_info" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="photo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="activate_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reset_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="created_on" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -530,6 +568,25 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Users">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Users">
+              <MappingFragment StoreEntitySet="Tbl_Users">
+                <ScalarProperty Name="created_on" ColumnName="created_on" />
+                <ScalarProperty Name="reset_code" ColumnName="reset_code" />
+                <ScalarProperty Name="activate_code" ColumnName="activate_code" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="contact_info" ColumnName="contact_info" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

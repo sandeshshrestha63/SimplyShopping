@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace e_commerce.Controllers
 {
+    [Authorize]
     public class AdminCategoryController : Controller
     {
         SimplyShoppingEntities db = new SimplyShoppingEntities();

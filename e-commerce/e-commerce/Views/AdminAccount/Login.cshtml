@@ -1,4 +1,4 @@
-﻿@model e_commerce.DAL.Tbl_Members
+﻿@model e_commerce.DAL.Tbl_Users
 @{
     Layout = null;
 }
@@ -51,7 +51,7 @@
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group has-feedback">
-                    <input type="email" class="form-control" name="EmailId" placeholder="Email" required>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">

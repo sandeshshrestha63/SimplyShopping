@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace e_commerce.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         // GET: Admin

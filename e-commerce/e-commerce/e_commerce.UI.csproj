@@ -140,6 +140,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminAccountController.cs" />
     <Compile Include="Controllers\AdminCategoryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
@@ -192,6 +193,9 @@
       <DependentUpon>SimplyShopping.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Tbl_SlideImage.cs">
+      <DependentUpon>SimplyShopping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Tbl_Users.cs">
       <DependentUpon>SimplyShopping.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -9270,7 +9274,7 @@
     <Content Include="Views\AdminCategory\Delete.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Home\CheckoutDetails.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\AdminAccount\Login.cshtml" />
     <Content Include="Views\Payment\PaymentWithPaypal.cshtml" />
     <Content Include="Views\Payment\FailureView.cshtml" />
     <Content Include="Views\Payment\SuccessView.cshtml" />
@@ -9279,6 +9283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Account\" />
     <Folder Include="Views\AdminProduct\" />
   </ItemGroup>
   <ItemGroup>

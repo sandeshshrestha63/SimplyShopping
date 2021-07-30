@@ -15,11 +15,12 @@
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_SlideImage" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Cart" Width="1.5" PointX="14.875" PointY="4.875" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Category" Width="1.5" PointX="10.375" PointY="4.875" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Product" Width="1.5" PointX="12.625" PointY="4" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Cart" Width="1.5" PointX="7.625" PointY="2.75" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Category" Width="1.5" PointX="2.75" PointY="1.625" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Product" Width="1.5" PointX="4.75" PointY="1.25" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Cart__Produc__38996AB5" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__398D8EEE" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Users" Width="1.5" PointX="0.5" PointY="1.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
