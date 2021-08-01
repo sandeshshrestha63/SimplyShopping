@@ -18,58 +18,62 @@
                         <div class="col-sm-6">
                             <img src="@Url.Content("~/Content/Images/"+Model.Product.ProductImage)" width="100%" class="zoom" />
                             <br><br>
+                            @using (Html.BeginForm("AddToCart", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken();
+                                @Html.HiddenFor(model=> model.Product.ProductId);
                                 <div class="form-group">
                                     <div class="input-group col-sm-5">
                                         <span class="input-group-btn">
                                             <button type="button" id="minus" class="btn btn-default btn-flat btn-lg minus"><i class="fa fa-minus"></i></button>
                                         </span>
-                                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control input-lg text-center",@value="1"} })
+                                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control input-lg text-center", @value = "1" } })
                                         <span class="input-group-btn">
                                             <button type="button" id="add" class="btn btn-default btn-flat btn-lg add">
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                         </span>
-                                        <input type="hidden" value="<?php echo $product['prodid']; ?>" name="id">
                                     </div>
                                     <input type="hidden" name="product_id" value="@ViewBag.productid" />
                                     <button type="submit" class="btn btn-primary btn-lg btn-flat" style="margin-top:10px;"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                                 </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <h1 class="page-header">@Model.Product.ProductName</h1>
-                            <h3><b>&#36; @Model.Product.Price</b></h3>
-                            <p><b>Category:</b>@ViewBag.category</a></p>
-                            <p><b>Description:</b></p>
-                            <p>@Html.Raw(Model.Product.Description) </p>
+                            }
+                            </div>
+                            <div class="col-sm-6">
+                                <h1 class="page-header">@Model.Product.ProductName</h1>
+                                <h3><b>&#36; @Model.Product.Price</b></h3>
+                                <p><b>Category:</b>@ViewBag.category</a></p>
+                                <p><b>Description:</b></p>
+                                <p>@Html.Raw(Model.Product.Description) </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
-</div>
-@section Scripts{
-    <script type="text/javascript">
-        $(function () {
-            $('.add').click(function (e) {
-                console.log("Hello world");
-                e.preventDefault();
-                var quantity = $('#Quantity').val();
-                quantity++;
-                $('#Quantity').val(quantity);
-            });
-            $('.minus').click(function (e) {
-                e.preventDefault();
-                var quantity = $('#Quantity').val();
-                if (quantity > 1) {
-                    quantity--;
-                }
-                $('#Quantity').val(quantity);
+    @section Scripts{
+        <script type="text/javascript">
+            $(function () {
+                $('.add').click(function (e) {
+                    console.log("Hello world");
+                    e.preventDefault();
+                    var quantity = $('#Quantity').val();
+                    quantity++;
+                    $('#Quantity').val(quantity);
+                });
+                $('.minus').click(function (e) {
+                    e.preventDefault();
+                    var quantity = $('#Quantity').val();
+                    if (quantity > 1) {
+                        quantity--;
+                    }
+                    $('#Quantity').val(quantity);
+
+                });
 
             });
-
-        });
-    </script>
-}
+        </script>
+    }
 
 

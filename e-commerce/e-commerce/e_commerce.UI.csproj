@@ -8281,6 +8281,7 @@
     <Content Include="Content\bower_components\select2\tests\vendor\qunit-1.23.1.css" />
     <Content Include="Content\bower_components\select2\tests\vendor\qunit-1.23.1.js" />
     <Content Include="Content\bower_components\select2\vendor\jquery-2.1.0.js" />
+    <Content Include="Content\images\1.png" />
     <Content Include="Content\images\circle.svg" />
     <Content Include="Content\dist\css\AdminLTE.css" />
     <Content Include="Content\dist\css\AdminLTE.min.css" />
@@ -8394,6 +8395,7 @@
     <Content Include="Content\images\large-pc-specialist-vortex-minerva-xt-r-gaming-pc.jpg" />
     <Content Include="Content\images\lenovo-ideapad-320s-14ikb-14-laptop-grey.jpg" />
     <Content Include="Content\images\lenovo-legion-y520-gaming-pc.jpg" />
+    <Content Include="Content\images\loginlogo.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\male2.png" />
     <Content Include="Content\images\microsoft-surface-pro-4-typecover-128-gb.jpg" />
@@ -8405,6 +8407,7 @@
     <Content Include="Content\images\s9.jpg" />
     <Content Include="Content\images\samsung-galaxy-s9-128-gb.jpg" />
     <Content Include="Content\images\samsung-note-8.jpg" />
+    <Content Include="Content\loginStyle.css" />
     <Content Include="Content\magnify\magnify.min.css" />
     <Content Include="Content\magnify\magnify.min.js" />
     <Content Include="Content\MainLayout.css" />
@@ -9282,10 +9285,10 @@
     <Content Include="Views\Home\CategoryList.cshtml" />
     <Content Include="Views\Product\ProductList.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Account\" />
     <Folder Include="Views\AdminProduct\" />
   </ItemGroup>
   <ItemGroup>

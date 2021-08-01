@@ -12,9 +12,9 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body style="background-color:black;">
+<body>
 
-    <div class="container" style="background-color:white;">
+    <div class="container" >
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="logo">
@@ -76,8 +76,17 @@
                                 @{Html.RenderAction("CategoryList", "Home");}
                             </ul>
                         </li>
-                        <li><a style="border-radius:initial;" href="#">Sign In</a></li>
-                        <li><a style="border-radius:initial;" href="#">Sign Up</a></li>
+                        @if (Session["UserName"] != null)
+                        {
+                            <li><a style="border-radius:initial;">Hi, @Session["UserName"].ToString()</a></li>
+                            <li><a style="border-radius:initial" href="@Url.Action("Logout","Account")">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a style="border-radius:initial;" href="@Url.Action("Login","Account")">Sign In</a></li>
+                            <li><a style="border-radius:initial;" href="#">Sign Up</a></li>
+                        }
+
                     </ul>
                 </div>
             </div>
