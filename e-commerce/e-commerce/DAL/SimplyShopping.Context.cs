@@ -27,7 +27,6 @@ namespace e_commerce.DAL
     
         public virtual DbSet<Tbl_CartStatus> Tbl_CartStatus { get; set; }
         public virtual DbSet<Tbl_MemberRole> Tbl_MemberRole { get; set; }
-        public virtual DbSet<Tbl_Members> Tbl_Members { get; set; }
         public virtual DbSet<tbl_OrdHolder> tbl_OrdHolder { get; set; }
         public virtual DbSet<tbl_OrdKey> tbl_OrdKey { get; set; }
         public virtual DbSet<Tbl_Roles> Tbl_Roles { get; set; }
@@ -37,5 +36,6 @@ namespace e_commerce.DAL
         public virtual DbSet<Tbl_Cart> Tbl_Cart { get; set; }
         public virtual DbSet<Tbl_Category> Tbl_Category { get; set; }
         public virtual DbSet<Tbl_Product> Tbl_Product { get; set; }
+        public virtual DbSet<Tbl_Members> Tbl_Members { get; set; }
     }
 }

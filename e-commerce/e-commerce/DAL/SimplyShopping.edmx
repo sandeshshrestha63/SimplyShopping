@@ -51,6 +51,7 @@
           <Property Name="IsDelete" Type="bit" />
           <Property Name="CreatedOn" Type="datetime" />
           <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="contact" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_OrdHolder">
           <Key>
@@ -236,21 +237,6 @@
           <Property Name="memberId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
         </EntityType>
-        <EntityType Name="Tbl_Members">
-          <Key>
-            <PropertyRef Name="MemberId" />
-          </Key>
-          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FristName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsDelete" Type="Boolean" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Tbl_ShippingDetails" Relationship="Self.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_Members" ToRole="Tbl_ShippingDetails" />
-        </EntityType>
         <EntityType Name="tbl_OrdHolder">
           <Key>
             <PropertyRef Name="Sn" />
@@ -296,7 +282,7 @@
           <Property Name="OrderId" Type="Int32" />
           <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_Members" Relationship="Self.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_ShippingDetails" ToRole="Tbl_Members" />
+          <NavigationProperty Name="Tbl_Members" Relationship="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_ShippingDetails" ToRole="Tbl_Members" />
         </EntityType>
         <EntityType Name="Tbl_SlideImage">
           <Key>
@@ -306,18 +292,6 @@
           <Property Name="SlideTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="SlideImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__Tbl_Shipp__Membe__3A81B327">
-          <End Role="Tbl_Members" Type="Self.Tbl_Members" Multiplicity="0..1" />
-          <End Role="Tbl_ShippingDetails" Type="Self.Tbl_ShippingDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_Members">
-              <PropertyRef Name="MemberId" />
-            </Principal>
-            <Dependent Role="Tbl_ShippingDetails">
-              <PropertyRef Name="MemberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_OrdHolder_tbl_OrdKey">
           <End Role="tbl_OrdKey" Type="Self.tbl_OrdKey" Multiplicity="0..1" />
           <End Role="tbl_OrdHolder" Type="Self.tbl_OrdHolder" Multiplicity="*" />
@@ -333,16 +307,11 @@
         <EntityContainer Name="SimplyShoppingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tbl_CartStatus" EntityType="Self.Tbl_CartStatus" />
           <EntitySet Name="Tbl_MemberRole" EntityType="Self.Tbl_MemberRole" />
-          <EntitySet Name="Tbl_Members" EntityType="Self.Tbl_Members" />
           <EntitySet Name="tbl_OrdHolder" EntityType="Self.tbl_OrdHolder" />
           <EntitySet Name="tbl_OrdKey" EntityType="Self.tbl_OrdKey" />
           <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" />
           <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" />
           <EntitySet Name="Tbl_SlideImage" EntityType="Self.Tbl_SlideImage" />
-          <AssociationSet Name="FK__Tbl_Shipp__Membe__3A81B327" Association="Self.FK__Tbl_Shipp__Membe__3A81B327">
-            <End Role="Tbl_Members" EntitySet="Tbl_Members" />
-            <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_OrdHolder_tbl_OrdKey" Association="Self.FK_tbl_OrdHolder_tbl_OrdKey">
             <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
             <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
@@ -358,6 +327,11 @@
           <AssociationSet Name="FK__Tbl_Produ__Categ__22751F6C" Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__22751F6C">
             <End Role="Tbl_Category" EntitySet="Tbl_Category" />
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+          </AssociationSet>
+          <EntitySet Name="Tbl_Members" EntityType="SimplyShoppingModel.Tbl_Members" />
+          <AssociationSet Name="FK__Tbl_Shipp__Membe__3A81B327" Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327">
+            <End Role="Tbl_Members" EntitySet="Tbl_Members" />
+            <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Tbl_Users">
@@ -441,6 +415,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tbl_Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FristName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_ShippingDetails" Relationship="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_Members" ToRole="Tbl_ShippingDetails" />
+        </EntityType>
+        <Association Name="FK__Tbl_Shipp__Membe__3A81B327">
+          <End Type="SimplyShoppingModel.Tbl_Members" Role="Tbl_Members" Multiplicity="0..1" />
+          <End Type="SimplyShoppingModel.Tbl_ShippingDetails" Role="Tbl_ShippingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Tbl_ShippingDetails">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -461,21 +463,6 @@
                 <ScalarProperty Name="MemberRoleID" ColumnName="MemberRoleID" />
                 <ScalarProperty Name="memberId" ColumnName="memberId" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_Members">
-            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Members">
-              <MappingFragment StoreEntitySet="Tbl_Members">
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="FristName" ColumnName="FristName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -590,6 +577,22 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Members">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Members">
+              <MappingFragment StoreEntitySet="Tbl_Members">
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FristName" ColumnName="FristName" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

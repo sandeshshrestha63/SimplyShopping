@@ -1,0 +1,66 @@
+﻿@model e_commerce.DAL.Tbl_Members
+@{
+    ViewBag.Title = "NewMember";
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Create New Account</h6>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("SaveMember", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="control-label" style="margin-top:5px;">First Name:</label>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.FristName, new { @class = "form-control", required = "required", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.FristName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="control-label" style="margin-top:5px;">Last Name:</label>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", required = "required", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="control-label" style="margin-top:5px;">Email:</label>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.EmailId, new { @class = "form-control", required = "required", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="control-label" style="margin-top:5px;">Password:</label>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", required = "required", @type = "password", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                    <label class="control-label" style="margin-top:5px;">Contact:</label>
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.contact, new { @class = "form-control", required = "required", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success " value="Save" />
+        }
+
+    </div>
+</div>

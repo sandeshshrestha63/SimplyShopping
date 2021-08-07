@@ -1,4 +1,5 @@
 ﻿@using e_commerce.Models.Home;
+@using e_commerce.DAL;
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,13 +79,14 @@
                         </li>
                         @if (Session["UserName"] != null)
                         {
-                            <li><a style="border-radius:initial;">Hi, @Session["UserName"].ToString()</a></li>
+                            Tbl_Members member = (Tbl_Members)(Session["UserName"]);
+                            <li><a style="border-radius:initial;">Hi, @member.FristName.ToString()</a></li>
                             <li><a style="border-radius:initial" href="@Url.Action("Logout","Account")">Logout</a></li>
                         }
                         else
                         {
                             <li><a style="border-radius:initial;" href="@Url.Action("Login","Account")">Sign In</a></li>
-                            <li><a style="border-radius:initial;" href="#">Sign Up</a></li>
+                            <li><a style="border-radius:initial;" href="@Url.Action("NewMember","Account")">Sign Up</a></li>
                         }
 
                     </ul>

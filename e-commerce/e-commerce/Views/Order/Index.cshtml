@@ -1,0 +1,64 @@
+﻿@model IEnumerable<e_commerce.DAL.tbl_OrdKey>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Category</h1>
+    <a href="#" class="d-sm-inline-block btn btn-sm btn-primary ">
+        <i class="fas fa-plus text-white-50"></i> Add
+    </a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>OrdId</th>
+                        <th>Order Details</th>
+                        <th>Customer Name</th>
+                        <th>Customer Contact</th>
+                        <th>Order Date</th>
+                        <th>Order Total</th>
+                        <th>Is Delivered</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@item.OrdID</td>
+                            <td><a href="@Url.Action("Details","Order",new { id= item.OrdID})">View Order Details</a></td>
+                            <td>@item.CustName</td>
+                            <td>@item.CustPhone</td>
+                            <td>@item.OrdDate</td>
+                            <td>$ @item.OrdTot</td>
+                            <td>
+                                @if(item.IsDelivered == true)
+                                {
+                                    <span class="btn btn-success">Yes</span>
+                                }
+                                else
+                                {
+                                    <span class="btn btn-danger">No</span>
+                                }
+                            </td>
+                            <td><a href="@Url.Action("Edit","Order",new { id= item.OrdID})">Edit</a>|<a href="@Url.Action("Delete","Order",new { id= item.OrdID})" style="color:red;">Delete</a></td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

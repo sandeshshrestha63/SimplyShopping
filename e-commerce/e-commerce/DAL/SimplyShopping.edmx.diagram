@@ -7,13 +7,11 @@
       <Diagram DiagramId="0f528bc68421493cbe5d18f605887a39" Name="Diagram1">
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_CartStatus" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_MemberRole" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Members" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.tbl_OrdHolder" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.tbl_OrdKey" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Roles" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_ShippingDetails" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_SlideImage" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Users" Width="1.5" PointX="0.5" PointY="1.375" />
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Cart" Width="1.5" PointX="14.875" PointY="4.875" />
@@ -21,6 +19,8 @@
         <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Product" Width="1.5" PointX="12.625" PointY="4" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Cart__Produc__2180FB33" />
         <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Produ__Categ__22751F6C" />
+        <EntityTypeShape EntityType="SimplyShoppingModel.Tbl_Members" Width="1.5" PointX="0.75" PointY="6" />
+        <AssociationConnector Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

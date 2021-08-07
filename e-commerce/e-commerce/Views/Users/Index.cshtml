@@ -1,0 +1,62 @@
+﻿@model List<e_commerce.DAL.Tbl_Users>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Users</h1>
+    <a href="@Url.Action("Create","AdminCategory")" class="d-sm-inline-block btn btn-sm btn-primary ">
+        <i class="fas fa-plus text-white-50"></i> Add
+    </a>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>@(Model.IndexOf(item) + 1)</td>
+                            <td>@item.firstname @item.lastname</td>
+                            <td>
+                                @item.email
+                            </td>
+                            <td>@item.address</td>
+                            <td>@item.contact_info </td>
+                            <td>
+                                @if(item.status == true)
+                                {
+                                    <span class=" btn btn-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="btn btn-danger">In-Active</span>
+                                }
+                            </td>
+                            <td><a href="@Url.Action("Edit","AdminCategory",new { id= item.id})">Edit</a>|<a href="@Url.Action("Delete","AdminCategory",new { id= item.id})" style="color:red;">Delete</a></td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

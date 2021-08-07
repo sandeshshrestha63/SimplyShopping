@@ -174,23 +174,26 @@ namespace e_commerce.Controllers
             {
                 List<Models.Home.Item> cart = (List<Models.Home.Item>)(Session["cart"]);
                 tbl_OrdKey ordkey = new tbl_OrdKey();
-                ordkey.CustName = "Sandesh shrestha";
-                ordkey.CustPhone = "9841505813";
+                Tbl_Members member =(Tbl_Members)(Session["UserName"]);
+                ordkey.CustName = member.FristName + " "+member.LastName;
+                ordkey.CustPhone = member.contact;
                 ordkey.OrdDate = DateTime.Now;
                 ordkey.IsDelivered = false;
                 ordkey.OrdTot = Convert.ToDecimal(Session["SessTotal"].ToString());
                 db.tbl_OrdKey.Add(ordkey);
-                db.SaveChanges();
-                var ordid = db.tbl_OrdKey.OrderByDescending(x=> x.OrdID >=0).FirstOrDefault().OrdID;
+                //db.SaveChanges();
+                var ordid = db.tbl_OrdKey.OrderByDescending(x=>x.OrdID).ToList();
+                var id = ordid.FirstOrDefault().OrdID;
                 foreach (var item in cart)
                 {
                     tbl_OrdHolder ordHolder = new tbl_OrdHolder();
                     ordHolder.ItemType = item.Product.ProductName;
-                    ordHolder.ItemDescription = item.Product.Description;
-                    ordHolder.Price = item.Product.Price;
+                    ordHolder.ItemDescription = "";
+                    ordHolder.Price = item.Product.Price* item.Quantity;
                     ordHolder.Quantity = item.Quantity;
-                    ordHolder.OrdId = Convert.ToInt64(ordid);
+                    //ordHolder.OrdId = Convert.ToInt64(id);
                     db.tbl_OrdHolder.Add(ordHolder);
+                    //db.SaveChanges();
                 }
                 db.SaveChanges();
                 Session.Remove("cart");

@@ -44,6 +44,13 @@ else
             </tr>
         </tbody>
     </table>
-    <a href="@Url.Action("PaymentWithPaypal","Payment")" class="btn btn-success">Payment >></a>
+    if (Session["UserName"] != null)
+    {
+        <a href="@Url.Action("PaymentWithPaypal", "Payment")" class="btn btn-success">Payment >></a>
+    }
+    else
+    {
+        <a href="@Url.Action("Login","Account")" class="btn btn-success">Sign In to Continue</a>
+    }
 
 }
