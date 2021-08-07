@@ -181,7 +181,7 @@ namespace e_commerce.Controllers
                 ordkey.IsDelivered = false;
                 ordkey.OrdTot = Convert.ToDecimal(Session["SessTotal"].ToString());
                 db.tbl_OrdKey.Add(ordkey);
-                //db.SaveChanges();
+                db.SaveChanges();
                 var ordid = db.tbl_OrdKey.OrderByDescending(x=>x.OrdID).ToList();
                 var id = ordid.FirstOrDefault().OrdID;
                 foreach (var item in cart)
@@ -191,7 +191,7 @@ namespace e_commerce.Controllers
                     ordHolder.ItemDescription = "";
                     ordHolder.Price = item.Product.Price* item.Quantity;
                     ordHolder.Quantity = item.Quantity;
-                    //ordHolder.OrdId = Convert.ToInt64(id);
+                    ordHolder.OrdId = Convert.ToInt64(id);
                     db.tbl_OrdHolder.Add(ordHolder);
                     //db.SaveChanges();
                 }
