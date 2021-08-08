@@ -17,5 +17,10 @@ namespace e_commerce.Controllers
             var orderList = db.tbl_OrdKey.OrderByDescending(x=> x.OrdID).ToList();
             return View(orderList);
         }
+        public ActionResult Details(long id)
+        {
+            var data = db.tbl_OrdKey.Find(id);
+            return View(data);
+        }
     }
 }

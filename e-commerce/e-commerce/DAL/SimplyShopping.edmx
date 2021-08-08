@@ -74,6 +74,7 @@
           <Property Name="CustName" Type="varchar" MaxLength="150" />
           <Property Name="CustPhone" Type="varchar" MaxLength="50" />
           <Property Name="OrdTot" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="tinyint" />
         </EntityType>
         <EntityType Name="Tbl_Product">
           <Key>
@@ -260,6 +261,7 @@
           <Property Name="CustPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_OrdHolder" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="tbl_OrdHolder" />
           <Property Name="OrdTot" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="Byte" />
         </EntityType>
         <EntityType Name="Tbl_Roles">
           <Key>
@@ -481,6 +483,7 @@
           <EntitySetMapping Name="tbl_OrdKey">
             <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdKey">
               <MappingFragment StoreEntitySet="tbl_OrdKey">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="OrdTot" ColumnName="OrdTot" />
                 <ScalarProperty Name="OrdID" ColumnName="OrdID" />
                 <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />

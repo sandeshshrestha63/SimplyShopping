@@ -26,6 +26,7 @@ namespace e_commerce.DAL
         public string CustName { get; set; }
         public string CustPhone { get; set; }
         public Nullable<decimal> OrdTot { get; set; }
+        public Nullable<byte> PaymentType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_OrdHolder> tbl_OrdHolder { get; set; }

@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Enums.cs" />
     <Compile Include="Models\CategoryDetail.cs" />
     <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\Home\HomeIndexViewModel.cs" />
@@ -9295,6 +9296,7 @@
     <Content Include="Views\AdminAccount\ChangePassword.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Account\NewMember.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

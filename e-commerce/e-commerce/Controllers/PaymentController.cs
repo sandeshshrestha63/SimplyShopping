@@ -1,4 +1,5 @@
 ﻿using e_commerce.DAL;
+using e_commerce.Helpers;
 using PayPal.Api;
 using System;
 using System.Collections.Generic;
@@ -179,6 +180,7 @@ namespace e_commerce.Controllers
                 ordkey.CustPhone = member.contact;
                 ordkey.OrdDate = DateTime.Now;
                 ordkey.IsDelivered = false;
+                ordkey.PaymentType = (byte)EnumPaymentType.Paypal;
                 ordkey.OrdTot = Convert.ToDecimal(Session["SessTotal"].ToString());
                 db.tbl_OrdKey.Add(ordkey);
                 db.SaveChanges();

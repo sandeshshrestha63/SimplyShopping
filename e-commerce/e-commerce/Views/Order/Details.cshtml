@@ -1,0 +1,96 @@
+﻿@model e_commerce.DAL.tbl_OrdKey
+    @using e_commerce.Helpers;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Order Details</h6>
+    </div>
+    <div class="card-body">
+        <div class="row form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.OrdID,"Order Id:")
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(model => model.OrdID)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.OrdDate,"Order Date:")
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(model => model.OrdDate)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.CustName,"Customer Name:")
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(model => model.CustName)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.CustPhone,"Customer Phone:")
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(model => model.CustPhone)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.OrdTot, "Order Total Amount :")
+            </div>
+            <div class="col-md-4">
+                $  @Html.DisplayFor(model => model.OrdTot)
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.PaymentType, "Payment Type:")
+            </div>
+            <div class="col-md-4">
+                @if(Model.PaymentType == (byte)EnumPaymentType.Paypal)
+                {
+                    <span class="btn btn-primary">Paypal</span>
+                }
+                else if(Model.PaymentType==(byte)EnumPaymentType.PayOnDelivery)
+                {
+                    <span class="btn btn-primary"> Pay on Delivery</span>
+                }
+                else
+                {
+                    <span class="btn btn-primary">Not Paid</span>
+                }
+            </div>
+        </div>
+        <div class="row form-group">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ItemType</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model.tbl_OrdHolder)
+                    {
+                       <tr>
+                           <td>
+                               @Html.DisplayFor(model=> item.ItemType)
+                           </td>
+                           <td>
+                               @Html.DisplayFor(model=> item.Quantity)
+                           </td>
+                           <td>
+                              $ @Html.DisplayFor(model=> item.Price)
+                           </td>
+                       </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
