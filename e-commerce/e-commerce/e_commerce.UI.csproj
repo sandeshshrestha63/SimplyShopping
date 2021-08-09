@@ -47,11 +47,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
@@ -148,6 +154,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="DAL\SimplyShopping.Context.cs">
       <AutoGen>True</AutoGen>
@@ -208,6 +215,7 @@
     <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Models\Home\HomeIndexViewModel.cs" />
     <Compile Include="Models\Home\Item.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\Shopping.cs" />
     <Compile Include="PaypalConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -216,6 +224,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Report\OrderDetailsReport.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\GenericUnitOfWork.cs" />
     <Compile Include="Repository\Repository.cs" />
@@ -9297,10 +9306,12 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Account\NewMember.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Home\ShippingDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AdminProduct\" />
+    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

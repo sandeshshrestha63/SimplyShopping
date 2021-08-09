@@ -21,10 +21,11 @@ namespace e_commerce.DAL
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
-        public Nullable<int> OrderId { get; set; }
         public Nullable<decimal> AmountPaid { get; set; }
         public string PaymentType { get; set; }
+        public Nullable<long> OrdId { get; set; }
     
         public virtual Tbl_Members Tbl_Members { get; set; }
+        public virtual tbl_OrdKey tbl_OrdKey { get; set; }
     }
 }

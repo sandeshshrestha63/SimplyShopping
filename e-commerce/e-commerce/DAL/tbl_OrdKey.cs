@@ -18,6 +18,7 @@ namespace e_commerce.DAL
         public tbl_OrdKey()
         {
             this.tbl_OrdHolder = new HashSet<tbl_OrdHolder>();
+            this.Tbl_ShippingDetails = new HashSet<Tbl_ShippingDetails>();
         }
     
         public long OrdID { get; set; }
@@ -30,5 +31,7 @@ namespace e_commerce.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_OrdHolder> tbl_OrdHolder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_ShippingDetails> Tbl_ShippingDetails { get; set; }
     }
 }

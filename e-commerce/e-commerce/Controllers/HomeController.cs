@@ -175,5 +175,17 @@ namespace e_commerce.Controllers
             var catList = db.Tbl_Category.Where(x=>x.IsActive == true && x.IsDelete== false).ToList();
             return PartialView(catList);
         }
+
+        public ActionResult ShippingDetails()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ShippingDetails(Tbl_ShippingDetails tbl_ShippingDetails)
+        {
+            Session["ShippingDetails"] = tbl_ShippingDetails;
+            return View();
+        }
     }
 }

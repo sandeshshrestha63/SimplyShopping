@@ -111,9 +111,9 @@
           <Property Name="State" Type="varchar" MaxLength="500" />
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="ZipCode" Type="varchar" MaxLength="50" />
-          <Property Name="OrderId" Type="int" />
           <Property Name="AmountPaid" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PaymentType" Type="varchar" MaxLength="50" />
+          <Property Name="OrdId" Type="bigint" />
         </EntityType>
         <EntityType Name="Tbl_SlideImage">
           <Key>
@@ -189,6 +189,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_ShippingDetails_tbl_OrdKey">
+          <End Role="tbl_OrdKey" Type="Self.tbl_OrdKey" Multiplicity="0..1" />
+          <End Role="Tbl_ShippingDetails" Type="Self.Tbl_ShippingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_OrdKey">
+              <PropertyRef Name="OrdID" />
+            </Principal>
+            <Dependent Role="Tbl_ShippingDetails">
+              <PropertyRef Name="OrdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SimplyShoppingModelStoreContainer">
           <EntitySet Name="Tbl_Cart" EntityType="Self.Tbl_Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_CartStatus" EntityType="Self.Tbl_CartStatus" Schema="dbo" store:Type="Tables" />
@@ -218,6 +230,10 @@
             <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
             <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ShippingDetails_tbl_OrdKey" Association="Self.FK_Tbl_ShippingDetails_tbl_OrdKey">
+            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
+            <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -238,53 +254,12 @@
           <Property Name="memberId" Type="Int32" />
           <Property Name="RoleId" Type="Int32" />
         </EntityType>
-        <EntityType Name="tbl_OrdHolder">
-          <Key>
-            <PropertyRef Name="Sn" />
-          </Key>
-          <Property Name="OrdId" Type="Int64" />
-          <Property Name="ItemType" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="ItemDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Sn" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="tbl_OrdKey" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdHolder" ToRole="tbl_OrdKey" />
-        </EntityType>
-        <EntityType Name="tbl_OrdKey">
-          <Key>
-            <PropertyRef Name="OrdID" />
-          </Key>
-          <Property Name="OrdID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsDelivered" Type="Boolean" />
-          <Property Name="OrdDate" Type="DateTime" Precision="3" />
-          <Property Name="CustName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="CustPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbl_OrdHolder" Relationship="Self.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="tbl_OrdHolder" />
-          <Property Name="OrdTot" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PaymentType" Type="Byte" />
-        </EntityType>
         <EntityType Name="Tbl_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Tbl_ShippingDetails">
-          <Key>
-            <PropertyRef Name="ShippingDetailId" />
-          </Key>
-          <Property Name="ShippingDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberId" Type="Int32" />
-          <Property Name="Adress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrderId" Type="Int32" />
-          <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_Members" Relationship="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_ShippingDetails" ToRole="Tbl_Members" />
         </EntityType>
         <EntityType Name="Tbl_SlideImage">
           <Key>
@@ -294,30 +269,11 @@
           <Property Name="SlideTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="SlideImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_tbl_OrdHolder_tbl_OrdKey">
-          <End Role="tbl_OrdKey" Type="Self.tbl_OrdKey" Multiplicity="0..1" />
-          <End Role="tbl_OrdHolder" Type="Self.tbl_OrdHolder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_OrdKey">
-              <PropertyRef Name="OrdID" />
-            </Principal>
-            <Dependent Role="tbl_OrdHolder">
-              <PropertyRef Name="OrdId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SimplyShoppingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Tbl_CartStatus" EntityType="Self.Tbl_CartStatus" />
           <EntitySet Name="Tbl_MemberRole" EntityType="Self.Tbl_MemberRole" />
-          <EntitySet Name="tbl_OrdHolder" EntityType="Self.tbl_OrdHolder" />
-          <EntitySet Name="tbl_OrdKey" EntityType="Self.tbl_OrdKey" />
           <EntitySet Name="Tbl_Roles" EntityType="Self.Tbl_Roles" />
-          <EntitySet Name="Tbl_ShippingDetails" EntityType="Self.Tbl_ShippingDetails" />
           <EntitySet Name="Tbl_SlideImage" EntityType="Self.Tbl_SlideImage" />
-          <AssociationSet Name="FK_tbl_OrdHolder_tbl_OrdKey" Association="Self.FK_tbl_OrdHolder_tbl_OrdKey">
-            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
-            <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
-          </AssociationSet>
           <EntitySet Name="Tbl_Users" EntityType="SimplyShoppingModel.Tbl_Users" />
           <EntitySet Name="Tbl_Cart" EntityType="SimplyShoppingModel.Tbl_Cart" />
           <EntitySet Name="Tbl_Category" EntityType="SimplyShoppingModel.Tbl_Category" />
@@ -331,8 +287,19 @@
             <End Role="Tbl_Product" EntitySet="Tbl_Product" />
           </AssociationSet>
           <EntitySet Name="Tbl_Members" EntityType="SimplyShoppingModel.Tbl_Members" />
+          <EntitySet Name="tbl_OrdHolder" EntityType="SimplyShoppingModel.tbl_OrdHolder" />
+          <EntitySet Name="tbl_OrdKey" EntityType="SimplyShoppingModel.tbl_OrdKey" />
+          <EntitySet Name="Tbl_ShippingDetails" EntityType="SimplyShoppingModel.Tbl_ShippingDetails" />
           <AssociationSet Name="FK__Tbl_Shipp__Membe__3A81B327" Association="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327">
             <End Role="Tbl_Members" EntitySet="Tbl_Members" />
+            <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OrdHolder_tbl_OrdKey" Association="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey">
+            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
+            <End Role="tbl_OrdHolder" EntitySet="tbl_OrdHolder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_ShippingDetails_tbl_OrdKey" Association="SimplyShoppingModel.FK_Tbl_ShippingDetails_tbl_OrdKey">
+            <End Role="tbl_OrdKey" EntitySet="tbl_OrdKey" />
             <End Role="Tbl_ShippingDetails" EntitySet="Tbl_ShippingDetails" />
           </AssociationSet>
         </EntityContainer>
@@ -433,6 +400,49 @@
           <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_ShippingDetails" Relationship="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_Members" ToRole="Tbl_ShippingDetails" />
         </EntityType>
+        <EntityType Name="tbl_OrdHolder">
+          <Key>
+            <PropertyRef Name="Sn" />
+          </Key>
+          <Property Name="OrdId" Type="Int64" />
+          <Property Name="ItemType" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ItemDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Sn" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="tbl_OrdKey" Relationship="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdHolder" ToRole="tbl_OrdKey" />
+        </EntityType>
+        <EntityType Name="tbl_OrdKey">
+          <Key>
+            <PropertyRef Name="OrdID" />
+          </Key>
+          <Property Name="OrdID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsDelivered" Type="Boolean" />
+          <Property Name="OrdDate" Type="DateTime" Precision="3" />
+          <Property Name="CustName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CustPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrdTot" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PaymentType" Type="Byte" />
+          <NavigationProperty Name="tbl_OrdHolder" Relationship="SimplyShoppingModel.FK_tbl_OrdHolder_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="tbl_OrdHolder" />
+          <NavigationProperty Name="Tbl_ShippingDetails" Relationship="SimplyShoppingModel.FK_Tbl_ShippingDetails_tbl_OrdKey" FromRole="tbl_OrdKey" ToRole="Tbl_ShippingDetails" />
+        </EntityType>
+        <EntityType Name="Tbl_ShippingDetails">
+          <Key>
+            <PropertyRef Name="ShippingDetailId" />
+          </Key>
+          <Property Name="ShippingDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="Adress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PaymentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrdId" Type="Int64" />
+          <NavigationProperty Name="Tbl_Members" Relationship="SimplyShoppingModel.FK__Tbl_Shipp__Membe__3A81B327" FromRole="Tbl_ShippingDetails" ToRole="Tbl_Members" />
+          <NavigationProperty Name="tbl_OrdKey" Relationship="SimplyShoppingModel.FK_Tbl_ShippingDetails_tbl_OrdKey" FromRole="Tbl_ShippingDetails" ToRole="tbl_OrdKey" />
+        </EntityType>
         <Association Name="FK__Tbl_Shipp__Membe__3A81B327">
           <End Type="SimplyShoppingModel.Tbl_Members" Role="Tbl_Members" Multiplicity="0..1" />
           <End Type="SimplyShoppingModel.Tbl_ShippingDetails" Role="Tbl_ShippingDetails" Multiplicity="*" />
@@ -442,6 +452,30 @@
             </Principal>
             <Dependent Role="Tbl_ShippingDetails">
               <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OrdHolder_tbl_OrdKey">
+          <End Type="SimplyShoppingModel.tbl_OrdKey" Role="tbl_OrdKey" Multiplicity="0..1" />
+          <End Type="SimplyShoppingModel.tbl_OrdHolder" Role="tbl_OrdHolder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_OrdKey">
+              <PropertyRef Name="OrdID" />
+            </Principal>
+            <Dependent Role="tbl_OrdHolder">
+              <PropertyRef Name="OrdId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_ShippingDetails_tbl_OrdKey">
+          <End Type="SimplyShoppingModel.tbl_OrdKey" Role="tbl_OrdKey" Multiplicity="0..1" />
+          <End Type="SimplyShoppingModel.Tbl_ShippingDetails" Role="Tbl_ShippingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_OrdKey">
+              <PropertyRef Name="OrdID" />
+            </Principal>
+            <Dependent Role="Tbl_ShippingDetails">
+              <PropertyRef Name="OrdId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -468,52 +502,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_OrdHolder">
-            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdHolder">
-              <MappingFragment StoreEntitySet="tbl_OrdHolder">
-                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
-                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
-                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Sn" ColumnName="Sn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_OrdKey">
-            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdKey">
-              <MappingFragment StoreEntitySet="tbl_OrdKey">
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="OrdTot" ColumnName="OrdTot" />
-                <ScalarProperty Name="OrdID" ColumnName="OrdID" />
-                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
-                <ScalarProperty Name="OrdDate" ColumnName="OrdDate" />
-                <ScalarProperty Name="CustName" ColumnName="CustName" />
-                <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_Roles">
             <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_Roles">
               <MappingFragment StoreEntitySet="Tbl_Roles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_ShippingDetails">
-            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_ShippingDetails">
-              <MappingFragment StoreEntitySet="Tbl_ShippingDetails">
-                <ScalarProperty Name="ShippingDetailId" ColumnName="ShippingDetailId" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -596,6 +589,47 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FristName" ColumnName="FristName" />
                 <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OrdHolder">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdHolder">
+              <MappingFragment StoreEntitySet="tbl_OrdHolder">
+                <ScalarProperty Name="Sn" ColumnName="Sn" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OrdKey">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.tbl_OrdKey">
+              <MappingFragment StoreEntitySet="tbl_OrdKey">
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="OrdTot" ColumnName="OrdTot" />
+                <ScalarProperty Name="CustPhone" ColumnName="CustPhone" />
+                <ScalarProperty Name="CustName" ColumnName="CustName" />
+                <ScalarProperty Name="OrdDate" ColumnName="OrdDate" />
+                <ScalarProperty Name="IsDelivered" ColumnName="IsDelivered" />
+                <ScalarProperty Name="OrdID" ColumnName="OrdID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_ShippingDetails">
+            <EntityTypeMapping TypeName="SimplyShoppingModel.Tbl_ShippingDetails">
+              <MappingFragment StoreEntitySet="Tbl_ShippingDetails">
+                <ScalarProperty Name="OrdId" ColumnName="OrdId" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="ShippingDetailId" ColumnName="ShippingDetailId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

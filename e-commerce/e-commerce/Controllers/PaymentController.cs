@@ -198,7 +198,21 @@ namespace e_commerce.Controllers
                     //db.SaveChanges();
                 }
                 db.SaveChanges();
+                Tbl_ShippingDetails det = (Tbl_ShippingDetails)(Session["ShippingDetails"]);
+                Tbl_ShippingDetails temp = new Tbl_ShippingDetails();
+                temp.Adress = det.Adress;
+                temp.City = det.City;
+                temp.Country = det.Country;
+                temp.State = det.State;
+                temp.ZipCode = det.ZipCode;
+                temp.AmountPaid = Convert.ToDecimal(Session["SessTotal"].ToString());
+                temp.PaymentType = "PayPal";
+                temp.MemberId = member.MemberId;
+                temp.OrdId = id;
+                db.Tbl_ShippingDetails.Add(temp);
+                db.SaveChanges();
                 Session.Remove("cart");
+                Session.Remove("ShippingDetails");
             }
             catch(Exception ex)
             {
